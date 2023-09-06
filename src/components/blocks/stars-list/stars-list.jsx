@@ -17,7 +17,7 @@ function StarsList({ stars, level }) {
               </StarItem>
             ))}
           </StarList>
-          <Button minWidth={353} link="/buy">
+          <Button maxWidth={353} link="/buy">
             Acquista
           </Button>
         </>

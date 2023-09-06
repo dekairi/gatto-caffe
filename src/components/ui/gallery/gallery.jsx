@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 import { SwiperSlide } from "swiper/react";
 import SwiperCore, { Navigation, Thumbs } from "swiper/core";
-import "swiper/swiper.scss";
+import 'swiper/css';
 import { ReactComponent as LeftArrow } from "/src/assets/left-arrow.svg";
 
 import {
@@ -67,10 +67,10 @@ function Gallery({ slides = [] }) {
             </SwiperSlide>
           ))}
         </StyledSwiperMini>
-        <StyledButtonLeft ref={navigationPrevRef}>
+        <StyledButtonLeft innerRef={navigationPrevRef}>
           <LeftArrow />
         </StyledButtonLeft>
-        <StyledButtonRight ref={navigationNextRef}>
+        <StyledButtonRight innerRef={navigationNextRef}>
           <RightArrow />
         </StyledButtonRight>
       </SliderWrapper>

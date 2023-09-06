@@ -20,7 +20,7 @@ export default function App() {
           <Route path={AppRoute.MAIN} element={<PageWrapper />}>
             <Route index element={<MainPage stars={starList} />} />
             <Route
-              path={AppRoute.BUY.replace(AppRoute.MAIN, "")}
+              path={AppRoute.BUY}
               element={<BuyPage slides={gallery} buyOptions={buyOptions} />}
             />
           </Route>

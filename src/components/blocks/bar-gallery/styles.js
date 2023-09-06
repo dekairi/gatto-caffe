@@ -1,9 +1,9 @@
 import styled from "styled-components";
 import { Section } from "/src/components/styled";
 import Title from "/src/components/ui/title/title";
-import galleryBackground from "/src/assets/gallery-background.svg";
-import galleryLeft from "/src/assets/gallery-left.svg";
-import galleryRight from "/src/assets/gallery-right.svg";
+import { ReactComponent as galleryBackground } from "/src/assets/gallery-background.svg";
+import { ReactComponent as galleryLeft } from "/src/assets/gallery-left.svg";
+import { ReactComponent as galleryRight } from "/src/assets/gallery-right.svg";
 
 export const StyledSection = styled(Section)`
   display: block;

@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import { Li, Section, Ul } from "/src/components/styled";
-import starsImage from "/src/assets/stars-image.svg";
-import startLeft from "/src/assets/stars-left.svg";
-import startRight from "/src/assets/stars-right.svg";
+import { ReactComponent as starsImage } from "/src/assets/stars-image.svg";
+import { ReactComponent as startLeft } from "/src/assets/stars-left.svg";
+import { ReactComponent as startRight } from "/src/assets/stars-right.svg";
 
 export const StyledStarsList = styled(Section)`
   position: relative;

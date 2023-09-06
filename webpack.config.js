@@ -1,55 +1,64 @@
-const path = require('path');
-const webpack = require('webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const path = require("path");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
-module.exports = {
+const isProduction = process.env.NODE_ENV == "production";
+
+const stylesHandler = isProduction
+    ? MiniCssExtractPlugin.loader
+    : "style-loader";
+
+const config = {
+    entry: "./src/index.js",
     output: {
-        publicPath: '/',
+        filename: "bundle.js",
+        path: path.resolve(__dirname, "dist"),
+        publicPath: '/'
     },
-    entry: './src/index.js',
-    module: {
-        rules: [
-            {
-                test: /\.cmp.svg$/,
-                use: ['@svgr/webpack'],
-            },
-            {
-                test: /\.(js|jsx)$/,
-                exclude: /node_modules/,
-                use: {
-                    loader: 'babel-loader',
-                    options: {
-                        presets: [
-                            '@babel/preset-env',
-                            '@babel/preset-react',
-                        ],
-                    },
-                },
-            },
-            {
-                test: /(.png|((?<!.cmp).svg)|.jpg|.gif|.woff|.woff2|.eot|.ttf|.otf)$/,
-                use: ['file-loader'],
-            },
-        ],
-    },
-    resolve: {
-        extensions: ['.jsx', '.js'],
-        alias: {
-            src: path.resolve(__dirname, 'src'),
-        }
+    devServer: {
+        open: true,
+        host: "localhost",
+        historyApiFallback: true,
     },
     plugins: [
         new HtmlWebpackPlugin({
-            template: 'public/index.html',
+            template: "index.html",
+            favicon: './src/assets/logo.ico'
         }),
     ],
-    devtool: 'inline-source-map',
-    devServer: {
-        static: {
-            directory: path.join(__dirname, 'public'),
-        },
-        historyApiFallback: true,
-        open: true,
-        hot: true,
+    resolve: {
+        extensions: ['.js', '.jsx', '.ts', '.tsx'],
     },
+    module: {
+        rules: [
+            {
+                test: /\.(js|jsx)$/i,
+                loader: "babel-loader",
+            },
+            {
+                test: /\.css$/i,
+                use: [stylesHandler, "css-loader", "postcss-loader"],
+            },
+            {
+                test: /\.(eot|ttf|woff|woff2|png|jpg|gif)$/i,
+                type: "asset",
+            },
+            {
+                test: /\.svg$/i,
+                issuer: /\.[jt]sx?$/,
+                use: ['@svgr/webpack', 'url-loader']
+            }
+        ],
+    },
+};
+
+module.exports = () => {
+    if (isProduction) {
+        config.mode = "production";
+
+        config.plugins.push(new MiniCssExtractPlugin());
+    } else {
+        config.mode = "development";
+    }
+    return config;
 };
